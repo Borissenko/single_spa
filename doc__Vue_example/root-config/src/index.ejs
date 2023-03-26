@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Microfrontends</title>
+    <meta name="importmap-type" content="systemjs-importmap"/>
+
+    <!--  <script type="systemjs-importmap"-->
+    <!--          src="https://storage.googleapis.com/vue.microfrontends.app/importmap.json"-->
+    <!--  ></script>-->
+    <script type="systemjs-importmap">
+    {
+      "imports": {
+        "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
+        "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.min.js",
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.5.1/lib/system/single-spa.min.js"
+      }
+    }
+
+    </script>
+
+    <% if (isLocal) { %>
+        <script type="systemjs-importmap">
+    {
+      "imports": {
+        "@vue-mf/root-config/": "//localhost:9000/",
+        "@vue-mf/styleguide/": "//localhost:8500/",
+        "@vue-mf/navbar/": "//localhost:8501/js/",
+        "@vue-mf/dogs-dashboard/": "//localhost:8502/js/",
+        "@vue-mf/rate-dogs/": "//localhost:8503/js/",
+        "@vue-mf/root-config": "//localhost:9000/vue-mf-root-config.js",
+        "@vue-mf/styleguide": "//localhost:8080/vue-mf-styleguide.js",
+        "@vue-mf/navbar": "//localhost:8501/js/app.js",
+        "@vue-mf/dogs-dashboard": "//localhost:8502/js/app.js",
+        "@vue-mf/rate-dogs": "//localhost:8503/js/app.js"
+      }
+    }
+        </script>
+    <% } %>
+
+    <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>
+</head>
+<body>
+<script>
+  System.import('@vue-mf/styleguide');
+  System.import('@vue-mf/root-config');
+</script>
+<import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
+</body>
+</html>
